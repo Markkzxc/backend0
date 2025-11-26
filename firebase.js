@@ -1,12 +1,12 @@
 // firebase.js
 import admin from "firebase-admin";
-// Import the service account JSON
-import serviceAccount from "./serviceAccountKey.json" assert { type: "json" };
+import fs from "fs";
 
-// Initialize Firebase Admin with the service account
+// Read the service account JSON
+const serviceAccount = JSON.parse(fs.readFileSync('./serviceAccountKey.json', 'utf8'));
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-// Export Firestore instance
 export const db = admin.firestore();
